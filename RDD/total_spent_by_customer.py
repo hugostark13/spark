@@ -9,7 +9,7 @@ def extractCustomerPricePairs(line):
     return (int(fields[0]), float(fields[2]))
 
 
-input = sc.textFile("data/customer-orders.csv")
+input = sc.textFile("./data/customer_orders.csv")
 mappedInput = input.map(extractCustomerPricePairs)
 totalByCustomer = mappedInput.reduceByKey(lambda x, y: round((x + y), 2))
 
