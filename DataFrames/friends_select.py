@@ -15,7 +15,7 @@ def mapper(line):
     )
 
 
-lines = spark.sparkContext.textFile("data/fakefriends.csv")
+lines = spark.sparkContext.textFile("./data/friends.csv")
 people = lines.map(mapper)
 
 # Infer the schema, and register the DataFrame as a table.

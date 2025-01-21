@@ -5,7 +5,7 @@ spark = SparkSession.builder.appName("SparkSQL").getOrCreate()
 people = (
     spark.read.option("header", "true")
     .option("inferSchema", "true")
-    .csv("data/fakefriends-header.csv")
+    .csv("./data/friends_header.csv")
 )
 
 print("Here is our inferred schema:")

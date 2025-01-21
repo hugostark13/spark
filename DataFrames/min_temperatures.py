@@ -20,7 +20,7 @@ schema = StructType(
 )
 
 # // Read the file as dataframe
-df = spark.read.schema(schema).csv("data/1800.csv")
+df = spark.read.schema(schema).csv("./data/weather_temp.csv")
 df.printSchema()
 
 # Filter out all but TMIN entries
@@ -37,7 +37,8 @@ minTempsByStation.show()
 minTempsByStationF = (
     minTempsByStation.withColumn(
         "temperature",
-        func.round(func.col("min(temperature)") * 0.1 * (9.0 / 5.0) + 32.0, 2),
+        # func.round(func.col("min(temperature)") * 0.1 * (9.0 / 5.0) + 32.0, 2),
+        func.round(func.col("min(temperature)")),
     )
     .select("stationID", "temperature")
     .sort("temperature")
@@ -47,6 +48,6 @@ minTempsByStationF = (
 results = minTempsByStationF.collect()
 
 for result in results:
-    print(result[0] + "\t{:.2f}F".format(result[1]))
+    print(result[0] + "\t{:.2f} C".format(result[1]))
 
 spark.stop()
